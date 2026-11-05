@@ -1,0 +1,18 @@
+{
+  "project": "TrialTrack AI",
+  "problem_statement": "26046",
+  "organization": "Ministry of Ayush / All India Institute of Ayurveda",
+  "synthetic_data_only": true,
+  "innovation": "TrialGuard explainable operational early-warning score",
+  "modules": [
+    "dashboard",
+    "studies",
+    "recruitment",
+    "ethics and CTRI",
+    "pharmacovigilance",
+    "role-based API access",
+    "audit trail",
+    "FHIR starter export",
+    "CDISC starter CSV"
+  ]
+}

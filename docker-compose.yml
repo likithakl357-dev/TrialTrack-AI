@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: trialtrack
+      POSTGRES_USER: trialtrack
+      POSTGRES_PASSWORD: change-this-password
+    volumes: ["trialtrack_pg:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U trialtrack -d trialtrack"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  backend:
+    build: ./backend
+    environment:
+      SECRET_KEY: change-this-secret-before-deployment
+      DATABASE_URL: postgresql+psycopg://trialtrack:change-this-password@db:5432/trialtrack
+      CORS_ORIGINS: http://localhost:5173
+    ports: ["8000:8000"]
+    depends_on:
+      db: {condition: service_healthy}
+  frontend:
+    build: ./frontend
+    environment:
+      VITE_API_URL: http://localhost:8000
+    ports: ["5173:5173"]
+    depends_on: [backend]
+volumes:
+  trialtrack_pg:
